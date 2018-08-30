@@ -158,8 +158,91 @@ extension ListAllQuestion {
         })
         
     }
+    func callWebServiceSearch(question:String){
+        
+        let url:String=Endpoint.QuestionFilter(questionFltr: question).urlString()
+        
+        _ = WebServiceManager.call(requestMethod: .get, serviceURL: url, params: nil, includeAccessToken: true, completion: { (response, error) in
+            
+            if (response != nil) {
+                if (response?.response?.statusCode == ServerResponseStatusCode.kOK) && (response!.result.value != nil) {
+                    self.arraySearchQuestion.removeAll()
+                    let responseData = JSON(response!.result.value!).arrayValue
+                    
+                    for jsonUnit in responseData {
+                        self.arraySearchQuestion.append(QuestionModel(fromJson:jsonUnit))
+                    }
+                    self.tbleViewQuestion.reloadData()
+            
+                } else if response?.response?.statusCode == ServerResponseStatusCode.kExpiredToken {
+                    // Extension.showSessionExpiredAndOpenLogin(parentVC: self)
+                } else if error != nil {
+                    
+                    print(error?.localizedDescription ?? "")
+                } else {
+                    if (response?.result.isFailure == true){
+                        print("Request Timeout")
+                        return
+                    }
+                    var responseData = JSON(response?.result.value ?? "")
+                    let message:String? = (responseData != nil) ? responseData[DateResponseKey.kMessage].stringValue : nil
+                    if message != nil {
+                        
+                        print("\(message!)")
+                    } else {
+                        
+                        print("\(String(describing: response?.result.description))")
+                    }
+                }
+            } else {
+                
+                print("\((error?.localizedDescription) ?? "")")
+            }
+        })
+        
+    }
+    
 }
 
 extension DetailViewController {
-    
+    func callWebServiceRetieveQuestion(qId:Int){
+        Extensions.showProgress(title: "Getting Questions....")
+        let url:String=Endpoint.RetieveQuestion(questionId: qId).urlString()
+        
+        _ = WebServiceManager.call(requestMethod: .get, serviceURL: url, params: nil, includeAccessToken: true, completion: { (response, error) in
+            
+            if (response != nil) {
+                if (response?.response?.statusCode == ServerResponseStatusCode.kOK) && (response!.result.value != nil) {
+                    Extensions.hideProgress()
+                    
+                    let responseData = JSON(response!.result.value!)
+                    self.questionDetail = QuestionModel(fromJson:responseData)
+                    
+                } else if response?.response?.statusCode == ServerResponseStatusCode.kExpiredToken {
+                    // Extension.showSessionExpiredAndOpenLogin(parentVC: self)
+                } else if error != nil {
+                    
+                    print(error?.localizedDescription ?? "")
+                } else {
+                    if (response?.result.isFailure == true){
+                        print("Request Timeout")
+                        return
+                    }
+                    var responseData = JSON(response?.result.value ?? "")
+                    let message:String? = (responseData != nil) ? responseData[DateResponseKey.kMessage].stringValue : nil
+                    if message != nil {
+                        
+                        print("\(message!)")
+                    } else {
+                        
+                        print("\(String(describing: response?.result.description))")
+                    }
+                }
+            } else {
+                
+                print("\((error?.localizedDescription) ?? "")")
+            }
+        })
+        
+    }
 }

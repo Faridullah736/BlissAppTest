@@ -142,6 +142,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Irj-UH-tA1">
                                 <rect key="frame" x="146" y="421" width="82" height="30"/>
                                 <state key="normal" title="Share"/>
+                                <connections>
+                                    <action selector="shareViaEmailAction:" destination="gH0-rR-eIE" eventType="touchUpInside" id="NXj-x1-d64"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -182,6 +185,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oZa-TT-37L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1640.8" y="32.833583208395808"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="O8S-CU-3qm">
+            <objects>
+                <viewController id="I2X-y6-LMX" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QXL-WR-Ncf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Connectivity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nFi-SF-Q2m">
+                                <rect key="frame" x="104" y="271" width="167" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="nFi-SF-Q2m" firstAttribute="centerX" secondItem="QXL-WR-Ncf" secondAttribute="centerX" id="NOm-CE-1Dm"/>
+                            <constraint firstItem="nFi-SF-Q2m" firstAttribute="top" secondItem="R3l-gm-cAD" secondAttribute="top" constant="251" id="eko-Yr-jeR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="R3l-gm-cAD"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="35P-F5-UOJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2328" y="31"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hl9-tL-yOZ">

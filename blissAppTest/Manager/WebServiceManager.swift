@@ -26,7 +26,7 @@ import ReachabilitySwift
 enum Endpoint {
     case Severhealth
     case ListAllQuestions
-    case updateQuestion(questionId:Int)
+    case RetieveQuestion(questionId:Int)
     case QuestionFilter(questionFltr:String)
     
     
@@ -40,7 +40,7 @@ enum Endpoint {
             
         case .QuestionFilter(questionFltr: let qFltr):
             return serverBaseURL + "questions?question_filter=\(qFltr)"
-        case .updateQuestion(questionId: let qId):
+        case .RetieveQuestion(questionId: let qId):
             return serverBaseURL + "questions/\(qId)"
        
             

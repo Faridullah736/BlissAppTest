@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController,MFMailComposeViewControllerDelegate {
     
     @IBOutlet var questionImge: UIImageView!
     @IBOutlet var lblQuestion: UILabel!
@@ -41,6 +42,10 @@ class DetailViewController: UIViewController {
         if let image = questionDetail?.imageUrl {
             questionImge.loadImageWith(imgUrl: image, placeHolder: nil)
         }
+        if !MFMailComposeViewController.canSendMail() {
+            print("Mail services are not available")
+            return
+        }
         txtSelOption.addTarget(self, action: #selector(myTargetFunction), for: UIControlEvents.touchDown)
         txtSelOption.inputView = UIView();
     }
@@ -49,15 +54,23 @@ class DetailViewController: UIViewController {
     @objc func myTargetFunction(textField: UITextField) {
         tbleOption.isHidden = false
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func shareViaEmailAction(_ sender: Any) {
+        let composeVC = MFMailComposeViewController()
+        composeVC.mailComposeDelegate = self
+    
+        composeVC.setSubject("Bliss Application Test")
+        let body = "<p>This is a test. Check out the link</p> <a href=\"https://blissrecruitmentapi.docs.apiary.io/#\">Content Link</a>"
+        composeVC.setMessageBody(body, isHTML: true)
+      
+        self.present(composeVC, animated: true, completion: nil)
     }
-    */
+
+    func mailComposeController(_ controller: MFMailComposeViewController,
+                               didFinishWith result: MFMailComposeResult, error: Error?) {
+ 
+        controller.dismiss(animated: true, completion: nil)
+    }
+
 
 }
 extension DetailViewController:UITableViewDataSource, UITableViewDelegate {

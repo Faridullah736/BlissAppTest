@@ -12,6 +12,7 @@ class ListAllQuestion: UIViewController {
     @IBOutlet var tbleViewQuestion: UITableView!
     var arraySearchQuestion:Array<QuestionModel> = []
     var arrayAllQuestion:Array<QuestionModel> = []
+     var isSlectedSearch : Bool = false
     
     
     override func viewDidLoad() {
@@ -29,6 +30,7 @@ class ListAllQuestion: UIViewController {
     
     func setupUI() {
         self.title = "All Questions"
+        
     }
     /*
     // MARK: - Navigation
@@ -44,12 +46,14 @@ class ListAllQuestion: UIViewController {
 extension ListAllQuestion: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
-        
+        isSlectedSearch = true
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
-    
         
+        if searchBar.text!.count > 0{
+            self.callWebServiceSearch(question: searchBar.text!)
+        }
     }
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         
@@ -60,24 +64,36 @@ extension ListAllQuestion: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)
         
+        
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.text = ""
+        isSlectedSearch = false
         
     }
 }
 extension ListAllQuestion:UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrayAllQuestion.count
+        return isSlectedSearch == false ? arrayAllQuestion.count: arraySearchQuestion.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:QuestionCell = tableView.dequeueReusableCell(withIdentifier: "question") as! QuestionCell
-        let data = arrayAllQuestion[indexPath.row] as QuestionModel
-        cell.questionData = data
-        
+        if isSlectedSearch {
+            let data = arraySearchQuestion[indexPath.row] as QuestionModel
+            cell.questionData = data
+        }else {
+            let data = arrayAllQuestion[indexPath.row] as QuestionModel
+            cell.questionData = data
+        }
+       
+        if indexPath.row == arrayAllQuestion.count - 1 { // last cell
+                   // more items to fetch
+                loadItem() // increment `fromIndex` by 20 before server call
+            
+        }
         return cell
     }
     
@@ -85,7 +101,14 @@ extension ListAllQuestion:UITableViewDelegate, UITableViewDataSource {
         //Change the selected background view of the cell.
         tableView.deselectRow(at: indexPath, animated: true)
         let Objc:DetailViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detail") as! DetailViewController
-        Objc.questionDetail = arrayAllQuestion[indexPath.row] as QuestionModel
+        if isSlectedSearch {
+             Objc.questionDetail = arraySearchQuestion[indexPath.row] as QuestionModel
+        }else {
+          Objc.questionDetail = arrayAllQuestion[indexPath.row] as QuestionModel
+        }
         self.navigationController?.pushViewController(Objc, animated: true)
+    }
+    func loadItem() {
+        self.callWebServiceListAllQuestions()
     }
 }
