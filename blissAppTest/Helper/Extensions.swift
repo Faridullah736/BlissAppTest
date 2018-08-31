@@ -119,7 +119,7 @@ extension ListAllQuestion {
             if (response != nil) {
                 if (response?.response?.statusCode == ServerResponseStatusCode.kOK) && (response!.result.value != nil) {
                     Extensions.hideProgress()
-                    self.arrayAllQuestion.removeAll()
+//                    self.arrayAllQuestion.removeAll()
                     let responseData = JSON(response!.result.value!).arrayValue
                     
                     //                    let resultData = responseData[DateResponseKey.kResult].arrayValue
