@@ -8,9 +8,10 @@
 
 import UIKit
 import MessageUI
+import ReachabilitySwift
 
 class DetailViewController: UIViewController,MFMailComposeViewControllerDelegate {
-    
+     let reachability = Reachability()
     @IBOutlet var questionImge: UIImageView!
     @IBOutlet var lblQuestion: UILabel!
     @IBOutlet var lblpublish: UILabel!
@@ -30,10 +31,7 @@ class DetailViewController: UIViewController,MFMailComposeViewControllerDelegate
         setupUI()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
     
     func setupUI() {
         self.title = "Detail"
@@ -48,11 +46,29 @@ class DetailViewController: UIViewController,MFMailComposeViewControllerDelegate
         }
         txtSelOption.addTarget(self, action: #selector(myTargetFunction), for: UIControlEvents.touchDown)
         txtSelOption.inputView = UIView();
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(networkChanged), name: ReachabilityChangedNotification, object: reachability)
+        do {
+            try reachability?.startNotifier()
+        }catch {
+            print("could not start notifier")
+        }
     }
     
     
     @objc func myTargetFunction(textField: UITextField) {
         tbleOption.isHidden = false
+    }
+    @objc func networkChanged(note:Notification) {
+        let networkStatus = note.object as! Reachability
+        if networkStatus.isReachable == true {
+            self.dismiss(animated: true, completion: nil)
+        }else{
+            DispatchQueue.main.async {
+                let Objc:noInternetViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "noInternet") as! noInternetViewController
+                self.present(Objc, animated: true, completion: nil)
+            }
+        }
     }
     @IBAction func shareViaEmailAction(_ sender: Any) {
         let composeVC = MFMailComposeViewController()

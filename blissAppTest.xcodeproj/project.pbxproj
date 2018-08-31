@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29B1598221393E080005E141 /* noInternetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B1598121393E080005E141 /* noInternetViewController.swift */; };
 		29D3BB7821382DC4008ADBDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D3BB7721382DC4008ADBDA /* AppDelegate.swift */; };
 		29D3BB7D21382DC4008ADBDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29D3BB7B21382DC4008ADBDA /* Main.storyboard */; };
 		29D3BB7F21382DC6008ADBDA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29D3BB7E21382DC6008ADBDA /* Assets.xcassets */; };
@@ -46,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		02D58EA6D24AACDEE55A2114 /* Pods-blissAppTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-blissAppTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-blissAppTest/Pods-blissAppTest.debug.xcconfig"; sourceTree = "<group>"; };
+		29B1598121393E080005E141 /* noInternetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = noInternetViewController.swift; sourceTree = "<group>"; };
 		29D3BB7421382DC4008ADBDA /* blissAppTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = blissAppTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29D3BB7721382DC4008ADBDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		29D3BB7C21382DC4008ADBDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				29D3BB7721382DC4008ADBDA /* AppDelegate.swift */,
 				29D3BBB321383ACA008ADBDA /* ListAllQuestion.swift */,
 				29D3BBBC2138636B008ADBDA /* DetailViewController.swift */,
+				29B1598121393E080005E141 /* noInternetViewController.swift */,
 				29D3BB7B21382DC4008ADBDA /* Main.storyboard */,
 				29D3BB7E21382DC6008ADBDA /* Assets.xcassets */,
 				29D3BB8021382DC6008ADBDA /* LaunchScreen.storyboard */,
@@ -518,6 +521,7 @@
 				29D3BBAC21382F61008ADBDA /* WebServiceManager.swift in Sources */,
 				29D3BBB22138348B008ADBDA /* Choice.swift in Sources */,
 				29D3BBB0213833A2008ADBDA /* QuestionModel.swift in Sources */,
+				29B1598221393E080005E141 /* noInternetViewController.swift in Sources */,
 				29D3BBB721384195008ADBDA /* QuestionCell.swift in Sources */,
 				29D3BBBB213856F6008ADBDA /* Serverhealth.swift in Sources */,
 				29D3BBBD2138636B008ADBDA /* DetailViewController.swift in Sources */,

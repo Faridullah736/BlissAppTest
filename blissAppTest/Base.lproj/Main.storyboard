@@ -186,10 +186,10 @@
             </objects>
             <point key="canvasLocation" x="1640.8" y="32.833583208395808"/>
         </scene>
-        <!--View Controller-->
+        <!--No Internet View Controller-->
         <scene sceneID="O8S-CU-3qm">
             <objects>
-                <viewController id="I2X-y6-LMX" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="noInternet" id="I2X-y6-LMX" customClass="noInternetViewController" customModule="blissAppTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QXL-WR-Ncf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

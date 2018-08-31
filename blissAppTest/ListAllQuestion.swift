@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import ReachabilitySwift
 
 class ListAllQuestion: UIViewController {
+    let reachability = Reachability()
     @IBOutlet var tbleViewQuestion: UITableView!
     var arraySearchQuestion:Array<QuestionModel> = []
     var arrayAllQuestion:Array<QuestionModel> = []
@@ -23,14 +25,29 @@ class ListAllQuestion: UIViewController {
         callWebServiceServerHealth()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
     
     func setupUI() {
         self.title = "All Questions"
+        NotificationCenter.default.addObserver(self, selector: #selector(networkChanged), name: ReachabilityChangedNotification, object: reachability)
+        do {
+            try reachability?.startNotifier()
+        }catch {
+            print("could not start notifier")
+        }
         
+        
+    }
+    @objc func networkChanged(note:Notification) {
+        let networkStatus = note.object as! Reachability
+        if networkStatus.isReachable == true {
+            self.dismiss(animated: true, completion: nil)
+        }else{
+            DispatchQueue.main.async {
+                let Objc:noInternetViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "noInternet") as! noInternetViewController
+                self.present(Objc, animated: true, completion: nil)
+            }
+        }
     }
     /*
     // MARK: - Navigation
